@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension group="system" method="upgrade" type="plugin" version="1.5">
+	<name>System - Zen Shortcodes</name>
+	<creationDate>Feb 2010</creationDate>
+	<version>1.0</version>
+	<author>Joomla Bamboo</author>
+	<copyright>Copyright 2009 - joomlabamboo.com</copyright>
+	<license>http://www.gnu.org/copyleft/lgpl.html</license>
+	<authorEmail>design@joomlabamboo.com</authorEmail>
+	<authorUrl>www.joomlabamboo.com.com</authorUrl>
+	<description><![CDATA[
+		<p style="line-height:180%;font-size:1.2em">
+			Zen Shortcodes.</p>]]></description>
+	<files>
+		<filename plugin="zenshortcodes">zenshortcodes.php</filename>
+		<folder>includes</folder>
+	</files>
+	<config>
+		<fields addfieldpath="" name="params">
+		</fields>
+	</config>
+</extension>
