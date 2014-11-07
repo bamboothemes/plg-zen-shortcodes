@@ -49,16 +49,41 @@ class plgSystemzenshortcodes extends JPlugin {
 		$regex = array();
 		
 		// icons
-		include('includes/icons.php');
+		if($this->params->get('icon_select')) {
+			include('includes/icons.php');
 		
-		foreach ($icons as $key => $icon) {
-			$regex[$icon] = array('<span class="zen-icon zen-icon-'.$icon.'">***code***</span>', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+			foreach ($icons as $key => $icon) {
+				$regex[$icon] = array('<span class="zen-icon zen-icon-'.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+			}
 		}
 		
 		
+		// Custom Items
+		$custom = $this->params->get('custom_icons');
 		
-		// icons
-		include('includes/grids.php');
+		if($custom !=="") {
+			$custom = explode(',', $custom);
+			
+			foreach ($custom as $icon){
+			 	$regex[$icon] = array('<span class="zen-icon zen-icon-'.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+			}
+		}
+		
+		
+		// Custom Syntax
+		$custom = $this->params->get('custom_syntax');
+		
+		if($custom !=="") {
+			$custom = explode(',', $custom);
+			
+			foreach ($custom as $icon){
+			 	$regex[$icon] = array('<span class="'.$icon.'">***code***</span>', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+			}
+		}
+		
+		
+		// grids
+		$grids = array('1','2','3','4','5','6','7','8','9','10','11','12');
 		
 		foreach ($grids as $key => $grid) {
 			$regex[$grid] = array('<div class="zg-col zg-col-'.$grid.'">***code***</div>', '#{zen-'.$grid.'}(.*?){/zen-'.$grid.'}#s');	
@@ -68,9 +93,14 @@ class plgSystemzenshortcodes extends JPlugin {
 		$regex['row'] = array('<div class="zen-row no-row-margin">***code***</div>', '#{zen-row}(.*?){/zen-row}#s');
 		
 
+		// Button
+		$regex['btn'] = array('***code***', '#{zen-btn}(.*?){/zen-btn}#s');
+		
+		// Button
+		$regex['pre'] = array('<pre data-codetype="HTML">***code***</pre>', '#{zen-pre}(.*?){/zen-pre}#s');
+
 		// Parse Codes
-		$startcode       = '';
-		$endcode         = '';
+	
 
 		foreach ($regex as $key => $value) {
 
@@ -78,9 +108,27 @@ class plgSystemzenshortcodes extends JPlugin {
 				foreach ($matches[1] as $match) {
 
 					$classes[] = $key;
-
-					$code = str_replace("***code***", $match, $value[0]);
-					$output = str_replace("{zen-".$key."}".$match."{/zen-".$key."}", $startcode.$code.$endcode , $output);
+					
+					if($key == "btn" || $key == "mini") {
+						$data = explode('|', $match);
+						$link = $data[1];
+						$text = $data[0];
+						$code = '<a class="'.$key.'" href="'.$link.'">'.$text.'</a>';
+						
+					} elseif($key == "pre") {
+						
+							$data = explode('|', $match);
+							$content = $data[1];
+							$title = $data[0];
+							$code = '<pre data-type="'.$title.'"><span class="code-title">'.$title.'</span>'.$content.'</pre>';
+							
+						}
+					
+					else {
+						$code = str_replace("***code***", $match, $value[0]);
+					}
+					
+					$output = str_replace("{zen-".$key."}".$match."{/zen-".$key."}", $code , $output);
 					
 				}
 		 	}
@@ -91,9 +139,7 @@ class plgSystemzenshortcodes extends JPlugin {
 			$regex,
 			$match,
 			$matches,
-			$code,
-			$startcode,
-			$endcode
+			$code
 			);
 
 		
