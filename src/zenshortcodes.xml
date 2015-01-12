@@ -2,7 +2,7 @@
 <extension group="system" method="upgrade" type="plugin" version="1.5">
 	<name>System - Zen Shortcodes</name>
 	<creationDate>Feb 2010</creationDate>
-	<version>1.0</version>
+	<version>1.1</version>
 	<author>Joomla Bamboo</author>
 	<copyright>Copyright 2009 - joomlabamboo.com</copyright>
 	<license>http://www.gnu.org/copyleft/lgpl.html</license>
@@ -14,16 +14,31 @@
 	<files>
 		<filename plugin="zenshortcodes">zenshortcodes.php</filename>
 		<folder>includes</folder>
+		<folder>fields</folder>
 	</files>
+	<media destination="zenshortcode" folder="media">
+		<folder>fontawesome</folder>
+		<file>index.html</file>
+	</media>
 	<config>
-		<fields addfieldpath="" name="params">
+		<fields addfieldpath="plugins/system/zenshortcodes/fields" name="params">
 			<fieldset group="options" label="Options" name="options">
-				<field default="1" description="This setting determines the icons to be used in the shortcode syntax." label="Font Awesome" name="icon_select" class="btn-group" type="radio">
+				<field type="heading" label="Font Awesome Settings" desc="The following settings determine how the Font Awesome font library is implemented in the shortcode plugin. Disabling the font awesome icons below will remove the font awesome icons from the array of tags available for use with the plugin. You may want to do this if you want to add only a small number of icons to the shortcode array or if you only wish to use custom icons as specified below. Disabling this option may improve performance for rendering shortcode syntax on the page. Please also note that if your template already loads the font awesome library you can disable the loading of the Font Awesome css." class="alert-info"/>
+				<field default="1" description="This setting determines the icons to be used in the shortcode syntax." label="Enable Font Awesome icons" name="icon_select" class="btn-group" type="radio">
 					<option value="1">Enable</option>
 					<option value="0">Disable</option>
 				</field>
+				<field default="local" description="Enable this if your template does not already load the Font Awesome Library. If you are using a Zen Grid Framework v4 theme leave this setting off." label="Load Font Awesome css" name="fa_css" type="list">
+					<option value="0">Disable</option>
+					<option value="local">Load local version</option>
+					<option value="cdn">Load latest via cdn</option>
+				</field>
+				<field type="heading" label="Custom Icon Settings" desc="Enter a comma separated list of any custom icons you wish to display using the shortcodes syntax. The names entered below will be available using the following syntax {zen-yourcustomname}content{/zen-yourcustomname}. Items added here will be rendered within span classes using the following classes zen-icon zen-iconyourcustomname." />
 				<field default="" description="Enter a comma separated list of any custom icons you wish to display using the shortcodes syntax. The names enter below will be available using the following syntax {zen-yourcustomname}content{/zen-yourcustomname}. Items added here will be rendered within span classes using the following classes zen-icon zen-iconyourcustomname." label="Custom Icons" name="custom_icons" type="textarea">
 				</field>
+				<field type="heading" label="Custom Prefix" desc="The custom prefix option determines how the tags are rendered in your markup. For example if you want to add additional Font Awesome fonts enter 'fa fa-' here or to use ZGFv4 name spaced fonts enter zen-icon zen-icon-." />
+				<field default="zen-icon zen-icon-" description="" label="Custom Prefix" name="custom_prefix" type="input" />
+				<field type="heading" label="Custom Syntax Settings" desc="Enter a comma separated list of any custom syntax you wish to display using the shortcodes syntax. The items will be rendered according to the name entered here. eg {zen-customname}Your content{/zen-customname}. The resulting content will be output in a span class using the customname entered." />
 				<field default="" description="Enter a comma separated list of any custom syntax you wish to display using the shortcodes syntax. The items will be rendered according to the name entered here. eg {zen-customname}Your content{/zen-customname}. The resulting content will be output in a span class using the customname entered." label="Custom Syntax" name="custom_syntax" type="textarea">
 				</field>
 			</fieldset>

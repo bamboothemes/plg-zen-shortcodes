@@ -16,6 +16,29 @@ jimport( 'joomla.plugin.plugin' );
 
 class plgSystemzenshortcodes extends JPlugin {
 
+
+	function onAfterRoute() {
+		
+		$app = JFactory::getApplication();
+		if($app->isAdmin()) {
+			return;
+		}
+		
+		$fa_css = $this->params->get('fa_css');
+	
+		if($fa_css) {
+			$document = JFactory::getDocument();
+			
+			if($fa_css =="cdn") {
+				$document->addStyleSheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+			} else {
+				$document->addStyleSheet(JURI::base() . 'media/zenshortcode/fontawesome/css/font-awesome.min.css');
+			}
+		}
+	}
+	
+	
+	
 	function onAfterRender() {
 
 		// Get Plugin info
@@ -48,24 +71,38 @@ class plgSystemzenshortcodes extends JPlugin {
 		// Array to store items in
 		$regex = array();
 		
+		
+		// Determine the prefix to use for the icons
+		$fa_css = $this->params->get('fa_css');
+		
+		if($fa_css =="cdn" || $fa_css =="local") {
+			$prefix = 'fa fa-';
+		} else {
+			$prefix = 'zen-icon zen-icon-';
+		}
+		
+		
 		// icons
 		if($this->params->get('icon_select')) {
+			
 			include('includes/icons.php');
+			
 		
 			foreach ($icons as $key => $icon) {
-				$regex[$icon] = array('<span class="zen-icon zen-icon-'.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+				$regex[$icon] = array('<span class="'.$prefix.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
 			}
 		}
 		
 		
 		// Custom Items
 		$custom = $this->params->get('custom_icons');
+		$custom_prefix = $this->params->get('custom_prefix', 'zen-icon zen-icon-');
 		
 		if($custom !=="") {
 			$custom = explode(',', $custom);
 			
 			foreach ($custom as $icon){
-			 	$regex[$icon] = array('<span class="zen-icon zen-icon-'.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+			 	$regex[$icon] = array('<span class="'.$custom_prefix.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
 			}
 		}
 		
@@ -99,6 +136,15 @@ class plgSystemzenshortcodes extends JPlugin {
 		// Button
 		$regex['pre'] = array('<pre data-codetype="HTML">***code***</pre>', '#{zen-pre}(.*?){/zen-pre}#s');
 
+		// Quote
+		$regex['quote'] = array('<blockquote><p>***code***</p></blockquote>', '#{zen-quote}(.*?){/zen-quote}#s');
+		
+		// Author
+		$regex['author'] = array('<small class="author">***code***</small>', '#{zen-author}(.*?){/zen-author}#s');
+		
+		// Line Break
+		$regex['br'] = array('<br />', '#{zen-br}(.*?){/zen-br}#s');
+		
 		// Parse Codes
 	
 
