@@ -89,7 +89,7 @@ class plgSystemzenshortcodes extends JPlugin {
 			
 		
 			foreach ($icons as $key => $icon) {
-				$regex[$icon] = array('<span class="'.$prefix.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+				$regex[$icon] = array('<span class=\''.$prefix.$icon.'\'></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
 			}
 		}
 		
@@ -102,7 +102,7 @@ class plgSystemzenshortcodes extends JPlugin {
 			$custom = explode(',', $custom);
 			
 			foreach ($custom as $icon){
-			 	$regex[$icon] = array('<span class="'.$custom_prefix.$icon.'"></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+			 	$regex[$icon] = array('<span class=\''.$custom_prefix.$icon.'\'></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
 			}
 		}
 		
@@ -114,7 +114,7 @@ class plgSystemzenshortcodes extends JPlugin {
 			$custom = explode(',', $custom);
 			
 			foreach ($custom as $icon){
-			 	$regex[$icon] = array('<span class="'.$icon.'">***code***</span>', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
+			 	$regex[$icon] = array('<span class=\''.$icon.'\'>***code***</span>', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
 			}
 		}
 		
@@ -159,7 +159,7 @@ class plgSystemzenshortcodes extends JPlugin {
 						$data = explode('|', $match);
 						$link = $data[1];
 						$text = $data[0];
-						$code = '<a class="'.$key.'" href="'.$link.'">'.$text.'</a>';
+						$code = '<a class=\''.$key.'\' href=\''.$link.'\'>'.$text.'</a>';
 						
 					} elseif($key == "pre") {
 						
