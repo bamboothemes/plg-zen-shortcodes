@@ -127,7 +127,7 @@ class plgSystemzenshortcodes extends JPlugin {
 		}
 		
 		
-		$regex['row'] = array('<div class="zen-row no-row-margin">***code***</div>', '#{zen-row}(.*?){/zen-row}#s');
+		$regex['row'] = array('<div class="zen-row no-row-margin clearfix">***code***</div>', '#{zen-row}(.*?){/zen-row}#s');
 		
 
 		// Button
