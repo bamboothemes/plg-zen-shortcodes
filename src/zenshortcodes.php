@@ -87,8 +87,8 @@ class plgSystemzenshortcodes extends JPlugin {
 			
 			include('includes/icons.php');
 			
-		
 			foreach ($icons as $key => $icon) {
+			
 				$regex[$icon] = array('<span class=\''.$prefix.$icon.'\'></span>***code***', '#{zen-'.$icon.'}(.*?){/zen-'.$icon.'}#s');	
 			}
 		}
@@ -151,6 +151,7 @@ class plgSystemzenshortcodes extends JPlugin {
 		foreach ($regex as $key => $value) {
 
 			if (preg_match_all($value[1], $output, $matches, PREG_PATTERN_ORDER) > 0) {
+				
 				foreach ($matches[1] as $match) {
 
 					$classes[] = $key;
@@ -171,11 +172,33 @@ class plgSystemzenshortcodes extends JPlugin {
 						}
 					
 					else {
+											
 						$code = str_replace("***code***", $match, $value[0]);
-					}
-					
+						
+						// See if we are adding any effects
+						$effects= explode('|', $match);
+							
+						if(is_array($effects)) {
+						
+							// Ok so we have some effects lets get the content first
+							$content = explode(':', $match);
+							
+							if(isset($content[1])) {
+								$code .= $content[1];
+							}
+							
+							$effects = array_filter($effects);
+							$code = str_replace('|', '', $code);
+							
+							foreach ($effects as $effect) {
+								$code = str_replace($effect, '', $code);
+								$code = str_replace("<span class='", "<span class='zen-icon-".$effect." ", $code);
+							}
+							
+							
+						}	
+					}				
 					$output = str_replace("{zen-".$key."}".$match."{/zen-".$key."}", $code , $output);
-					
 				}
 		 	}
 		}
