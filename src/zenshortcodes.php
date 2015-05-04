@@ -176,10 +176,12 @@ class plgSystemzenshortcodes extends JPlugin {
 						$code = str_replace("***code***", $match, $value[0]);
 						
 						// See if we are adding any effects
-						$effects= explode('|', $match);
+						$effects = strpos($match, '|');
 							
-						if(is_array($effects)) {
+						if($effects) {
 						
+							$effects = explode('|', $match);
+							
 							// Ok so we have some effects lets get the content first
 							$content = explode(':', $match);
 							
@@ -194,8 +196,6 @@ class plgSystemzenshortcodes extends JPlugin {
 								$code = str_replace($effect, '', $code);
 								$code = str_replace("<span class='", "<span class='zen-icon-".$effect." ", $code);
 							}
-							
-							
 						}	
 					}				
 					$output = str_replace("{zen-".$key."}".$match."{/zen-".$key."}", $code , $output);
