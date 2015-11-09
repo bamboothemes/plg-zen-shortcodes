@@ -28,14 +28,15 @@
 					<option value="1">Enable</option>
 					<option value="0">Disable</option>
 				</field>
-				<field default="0" description="Use advanced delimiter |||." label="Use advanced delimiter" name="advanced_delim" class="btn-group" type="radio">
-					<option value="1">Enable</option>
-					<option value="0">Disable</option>
-				</field>
 				<field default="local" description="Enable this if your template does not already load the Font Awesome Library. If you are using a Zen Grid Framework v4 theme leave this setting off." label="Load Font Awesome css" name="fa_css" type="list">
 					<option value="0">Disable</option>
 					<option value="local">Load local version</option>
 					<option value="cdn">Load latest via cdn</option>
+				</field>
+				<field type="heading" label="Effects delimiter" desc="Enabling this option changes the delimiter to ||| rather than the default delimiter which is |." />
+				<field default="0" description="Use advanced delimiter |||." label="Use advanced delimiter" name="advanced_delim" class="btn-group" type="radio">
+					<option value="1">Enable</option>
+					<option value="0">Disable</option>
 				</field>
 				<field type="heading" label="Custom Icon Settings" desc="Enter a comma separated list of any custom icons you wish to display using the shortcodes syntax. The names entered below will be available using the following syntax {zen-yourcustomname}content{/zen-yourcustomname}. Items added here will be rendered within span classes using the following classes zen-icon zen-iconyourcustomname." />
 				<field default="" description="Enter a comma separated list of any custom icons you wish to display using the shortcodes syntax. The names enter below will be available using the following syntax {zen-yourcustomname}content{/zen-yourcustomname}. Items added here will be rendered within span classes using the following classes zen-icon zen-iconyourcustomname." label="Custom Icons" name="custom_icons" type="textarea">
