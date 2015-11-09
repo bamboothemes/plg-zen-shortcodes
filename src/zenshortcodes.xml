@@ -2,7 +2,7 @@
 <extension group="system" method="upgrade" type="plugin" version="1.5">
 	<name>System - Zen Shortcodes</name>
 	<creationDate>Feb 2010</creationDate>
-	<version>1.3.0</version>
+	<version>1.4.0</version>
 	<author>Joomla Bamboo</author>
 	<copyright>Copyright 2009 - joomlabamboo.com</copyright>
 	<license>http://www.gnu.org/copyleft/lgpl.html</license>
@@ -25,6 +25,10 @@
 			<fieldset group="options" label="Options" name="options">
 				<field type="heading" label="Font Awesome Settings" desc="The following settings determine how the Font Awesome font library is implemented in the shortcode plugin. Disabling the font awesome icons below will remove the font awesome icons from the array of tags available for use with the plugin. You may want to do this if you want to add only a small number of icons to the shortcode array or if you only wish to use custom icons as specified below. Disabling this option may improve performance for rendering shortcode syntax on the page. Please also note that if your template already loads the font awesome library you can disable the loading of the Font Awesome css." class="alert-info"/>
 				<field default="1" description="This setting determines the icons to be used in the shortcode syntax." label="Enable Font Awesome icons" name="icon_select" class="btn-group" type="radio">
+					<option value="1">Enable</option>
+					<option value="0">Disable</option>
+				</field>
+				<field default="0" description="Use advanced delimiter |||." label="Use advanced delimiter" name="advanced_delim" class="btn-group" type="radio">
 					<option value="1">Enable</option>
 					<option value="0">Disable</option>
 				</field>

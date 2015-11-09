@@ -53,6 +53,7 @@ class plgSystemzenshortcodes extends JPlugin {
 		
 		$param		= new JForm( $plugin->params );
 		$enabled   = $this->params->get('enabled', 1);
+		$advanced_delim = $this->params->get('advanced_delim', 0);
 
 		if($app->isAdmin()) {
 			return;
@@ -176,11 +177,18 @@ class plgSystemzenshortcodes extends JPlugin {
 						$code = str_replace("***code***", $match, $value[0]);
 						
 						// See if we are adding any effects
-						$effects = strpos($match, '|');
+						
+						if($advanced_delim) {
+							$delim = '|||';
+						} else {
+							$delim = '|';
+						}
+						
+						$effects = strpos($match, $delim);
 							
 						if($effects) {
 						
-							$effects = explode('|', $match);
+							$effects = explode($delim, $match);
 							
 							// Ok so we have some effects lets get the content first
 							$content = explode(':', $match);
@@ -190,7 +198,7 @@ class plgSystemzenshortcodes extends JPlugin {
 							}
 							
 							$effects = array_filter($effects);
-							$code = str_replace('|', '', $code);
+							$code = str_replace($delim, '', $code);
 							
 							foreach ($effects as $effect) {
 								$code = str_replace($effect, '', $code);
