@@ -124,24 +124,24 @@ class plgSystemzenshortcodes extends JPlugin {
 		$grids = array('1','2','3','4','5','6','7','8','9','10','11','12');
 		
 		foreach ($grids as $key => $grid) {
-			$regex[$grid] = array('<div class="zg-col zg-col-'.$grid.'">***code***</div>', '#{zen-'.$grid.'}(.*?){/zen-'.$grid.'}#s');	
+			$regex[$grid] = array('<div class=\'zg-col zg-col-'.$grid.'\'>***code***</div>', '#{zen-'.$grid.'}(.*?){/zen-'.$grid.'}#s');	
 		}
 		
 		
-		$regex['row'] = array('<div class="zen-row no-row-margin clearfix">***code***</div>', '#{zen-row}(.*?){/zen-row}#s');
+		$regex['row'] = array('<div class=\'zen-row no-row-margin clearfix\'>***code***</div>', '#{zen-row}(.*?){/zen-row}#s');
 		
 
 		// Button
 		$regex['btn'] = array('***code***', '#{zen-btn}(.*?){/zen-btn}#s');
 		
 		// Button
-		$regex['pre'] = array('<pre data-codetype="HTML">***code***</pre>', '#{zen-pre}(.*?){/zen-pre}#s');
+		$regex['pre'] = array('<pre data-codetype=\'HTML\'>***code***</pre>', '#{zen-pre}(.*?){/zen-pre}#s');
 
 		// Quote
 		$regex['quote'] = array('<blockquote><p>***code***</p></blockquote>', '#{zen-quote}(.*?){/zen-quote}#s');
 		
 		// Author
-		$regex['author'] = array('<small class="author">***code***</small>', '#{zen-author}(.*?){/zen-author}#s');
+		$regex['author'] = array('<small class=\'author\'>***code***</small>', '#{zen-author}(.*?){/zen-author}#s');
 		
 		// Line Break
 		$regex['br'] = array('<br />', '#{zen-br}(.*?){/zen-br}#s');
@@ -168,7 +168,7 @@ class plgSystemzenshortcodes extends JPlugin {
 							$data = explode('|', $match);
 							$content = $data[1];
 							$title = $data[0];
-							$code = '<pre data-type="'.$title.'"><span class="code-title">'.$title.'</span>'.$content.'</pre>';
+							$code = '<pre data-type=\''.$title.'\'><span class=\'code-title\'>'.$title.'</span>'.$content.'</pre>';
 							
 						}
 					
