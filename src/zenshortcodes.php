@@ -30,7 +30,7 @@ class plgSystemzenshortcodes extends JPlugin {
 			$document = JFactory::getDocument();
 			
 			if($fa_css =="cdn") {
-				$document->addStyleSheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+				$document->addStyleSheet('//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css');
 			} else {
 				$document->addStyleSheet(JURI::base() . 'media/zenshortcode/fontawesome/css/font-awesome.min.css');
 			}
