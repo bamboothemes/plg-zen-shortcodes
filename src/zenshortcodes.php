@@ -147,6 +147,10 @@ class plgSystemzenshortcodes extends JPlugin {
 		// Line Break
 		$regex['br'] = array('<br />', '#{zen-br}(.*?){/zen-br}#s');
 		
+		$regex['anchor'] = array('***code***', '#{zen-anchor}(.*?){/zen-anchor}#s');
+		
+		$regex['onepage'] = array('<ul id="one-page"></ul>', '#{zen-onepage}(.*?){/zen-onepage}#s');
+		
 		// Parse Codes
 	
 
@@ -155,7 +159,7 @@ class plgSystemzenshortcodes extends JPlugin {
 			if (preg_match_all($value[1], $output, $matches, PREG_PATTERN_ORDER) > 0) {
 				
 				foreach ($matches[1] as $match) {
-
+				
 					$classes[] = $key;
 					
 					if($key == "btn" || $key == "mini") {
@@ -165,13 +169,20 @@ class plgSystemzenshortcodes extends JPlugin {
 						$code = '<a class=\''.$key.'\' href=\''.$link.'\'>'.$text.'</a>';
 						
 					} elseif($key == "pre") {
+						$data = explode('|', $match);
+						$content = $data[1];
+						$title = $data[0];
+						$code = '<pre data-type="'.$title.'"><span class="code-title">'.$title.'</span>'.$content.'</pre>';
+					
+					} elseif($key == "anchor") {
 						
-							$data = explode('|', $match);
-							$content = $data[1];
-							$title = $data[0];
-							$code = '<pre data-type="'.$title.'"><span class="code-title">'.$title.'</span>'.$content.'</pre>';
-							
-						}
+						$code = str_replace("***code***", $match, $value[0]);
+						$text = $code;
+						$code = strtolower(str_replace(' ', '-', $code));
+						//$code = '<a class="zen-anchor" id="banner-link" name="banner-link"></a>';
+						//$code = '<a class="zen-anchor" style="display:none" id="'.$code.'" name="'.$code.'">'.$text.'</a>';
+						$code = '<a class="zen-anchor" id=""'.$code.'"" name="'.$code.'">'.$text.'</a>';
+					} 
 					
 					else {
 											
@@ -206,7 +217,8 @@ class plgSystemzenshortcodes extends JPlugin {
 								$code = str_replace("<span class='", "<span class='zen-icon-".$effect." ", $code);
 							}
 						}	
-					}				
+					}	
+				
 					$output = str_replace("{zen-".$key."}".$match."{/zen-".$key."}", $code , $output);
 				}
 		 	}
