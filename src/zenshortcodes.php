@@ -135,11 +135,13 @@ class plgSystemzenshortcodes extends JPlugin {
 		// Button
 		$regex['btn'] = array('***code***', '#{zen-btn}(.*?){/zen-btn}#s');
 		
-		// Button
+		// Buttonss
 		$regex['pre'] = array('<pre data-codetype="HTML">***code***</pre>', '#{zen-pre}(.*?){/zen-pre}#s');
 
 		// Quote
 		$regex['quote'] = array('<blockquote><p>***code***</p></blockquote>', '#{zen-quote}(.*?){/zen-quote}#s');
+		
+		$regex['dropcap'] = array('<span class="dropcap">***code***</span>', '#{zen-dropcap}(.*?){/zen-dropcap}#s');
 		
 		// Author
 		$regex['author'] = array('<small class="author">***code***</small>', '#{zen-author}(.*?){/zen-author}#s');
@@ -148,9 +150,8 @@ class plgSystemzenshortcodes extends JPlugin {
 		$regex['br'] = array('<br />', '#{zen-br}(.*?){/zen-br}#s');
 		
 		$regex['anchor'] = array('***code***', '#{zen-anchor}(.*?){/zen-anchor}#s');
-		
-		$regex['onepage'] = array('<ul id="one-page"></ul>', '#{zen-onepage}(.*?){/zen-onepage}#s');
-		
+		$regex['anchor-list'] = array('***code***', '#{zen-anchor-list}(.*?){/zen-anchor-list}#s');
+				
 		// Parse Codes
 	
 
@@ -159,7 +160,7 @@ class plgSystemzenshortcodes extends JPlugin {
 			if (preg_match_all($value[1], $output, $matches, PREG_PATTERN_ORDER) > 0) {
 				
 				foreach ($matches[1] as $match) {
-				
+
 					$classes[] = $key;
 					
 					if($key == "btn" || $key == "mini") {
@@ -169,21 +170,29 @@ class plgSystemzenshortcodes extends JPlugin {
 						$code = '<a class=\''.$key.'\' href=\''.$link.'\'>'.$text.'</a>';
 						
 					} elseif($key == "pre") {
-						$data = explode('|', $match);
-						$content = $data[1];
-						$title = $data[0];
-						$code = '<pre data-type="'.$title.'"><span class="code-title">'.$title.'</span>'.$content.'</pre>';
-					
-					} elseif($key == "anchor") {
 						
-						$code = str_replace("***code***", $match, $value[0]);
-						$text = $code;
-						$code = strtolower(str_replace(' ', '-', $code));
-						//$code = '<a class="zen-anchor" id="banner-link" name="banner-link"></a>';
-						//$code = '<a class="zen-anchor" style="display:none" id="'.$code.'" name="'.$code.'">'.$text.'</a>';
-						$code = '<a class="zen-anchor" id=""'.$code.'"" name="'.$code.'">'.$text.'</a>';
-					} 
-					
+							$data = explode('|', $match);
+							$content = $data[1];
+							$title = $data[0];
+							$code = '<pre data-type="'.$title.'"><span class="code-title">'.$title.'</span>'.$content.'</pre>';
+							
+					}  elseif($key == "anchor") {
+											
+							$code = str_replace("***code***", $match, $value[0]);
+							$text = $code;
+							$code = strtolower(str_replace(' ', '-', $code));
+							
+							
+							$code = '<a class="zen-anchor" style="visibility:hidden;position:absolute;left:-10000px" id="'.$code.'" name="'.$code.'">'.$text.'</a>';
+						}
+						
+					elseif($key == "anchor-list") {
+									
+							$code = str_replace("***code***", $match, $value[0]);
+							
+							
+							$code = '<ul id="zen-anchor-list" class="'.$code.'"></ul>';
+						} 
 					else {
 											
 						$code = str_replace("***code***", $match, $value[0]);
@@ -217,8 +226,7 @@ class plgSystemzenshortcodes extends JPlugin {
 								$code = str_replace("<span class='", "<span class='zen-icon-".$effect." ", $code);
 							}
 						}	
-					}	
-				
+					}				
 					$output = str_replace("{zen-".$key."}".$match."{/zen-".$key."}", $code , $output);
 				}
 		 	}
