@@ -205,7 +205,7 @@ class plgSystemzenshortcodes extends JPlugin {
 							$delim = '|';
 						}
 						
-						$effects = strpos($match, $delim);
+						$effects = (strpos($match, $delim) || strpos($match, ':')) ? true : false;
 							
 						if($effects) {
 							
