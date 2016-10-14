@@ -208,16 +208,20 @@ class plgSystemzenshortcodes extends JPlugin {
 						$effects = strpos($match, $delim);
 							
 						if($effects) {
-						
-							$effects = explode($delim, $match);
 							
-							// Ok so we have some effects lets get the content first
+							// Ok so split the content and the effects
 							$content = explode(':', $match);
 							
 							if(isset($content[1])) {
 								$code .= $content[1];
 							}
 							
+                            if(isset($content[0])) {
+                                $effects = explode($delim, $content[0]);
+                            } else {
+                                $effects = explode($delim, $match);
+                            }
+                            
 							$effects = array_filter($effects);
 							$code = str_replace($delim, '', $code);
 							
